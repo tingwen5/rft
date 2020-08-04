@@ -15,6 +15,15 @@ public class RftConfig {
     @Value("${rft.cmd}")
     String rftCmd;
 
+    @Value("${jenkins.username}")
+    String jusername;
+
+    @Value("${jenkins.password}")
+    String jpassword;
+
+    @Value("${jenkins.httpLog}")
+    String httpLog;
+
     public String getPolarionTxt() {
         return polarionTxt;
     }
@@ -25,6 +34,18 @@ public class RftConfig {
 
     public String getRftCmd() {
         return rftCmd;
+    }
+
+    public String getJusername() {
+        return jusername;
+    }
+
+    public String getJpassword() {
+        return jpassword;
+    }
+
+    public String getHttpLog() {
+        return httpLog;
     }
 
 }

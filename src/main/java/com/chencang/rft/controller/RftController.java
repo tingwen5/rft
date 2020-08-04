@@ -2,7 +2,9 @@ package com.chencang.rft.controller;
 
 import com.chencang.rft.config.RftConfig;
 import com.chencang.rft.util.FileUtil;
+import com.chencang.rft.util.JenkinsScraper;
 import com.chencang.rft.util.TimerManager;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,12 +15,15 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-
+@Slf4j
 @RestController
 public class RftController {
 
     @Autowired
     RftConfig rftConfig;
+
+    @Autowired
+    JenkinsScraper jenkinsScraper;
 
     @PostMapping("/autoTest")
     public void AutoTest() {
@@ -40,7 +45,8 @@ public class RftController {
             tm.startTimerTask();
             FileUtil.excuteCMDBatFile(rftConfig.getRftCmd());
             FileUtil.autoReplaceStr(rftConfig.getRftSched(), str, "\"scriptNameIdentification\"");
-
+            String code = jenkinsScraper.scrape(rftConfig.getHttpLog(), rftConfig.getJusername(), rftConfig.getJpassword());
+            log.info(code);
         } catch (IOException e) {
             e.printStackTrace();
         }
