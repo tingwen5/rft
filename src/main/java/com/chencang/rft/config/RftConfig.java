@@ -24,6 +24,9 @@ public class RftConfig {
     @Value("${jenkins.httpLog}")
     String httpLog;
 
+    @Value("${labview.txt}")
+    String lPaht;
+
     public String getPolarionTxt() {
         return polarionTxt;
     }
@@ -46,6 +49,10 @@ public class RftConfig {
 
     public String getHttpLog() {
         return httpLog;
+    }
+
+    public String getlPaht() {
+        return lPaht;
     }
 
 }

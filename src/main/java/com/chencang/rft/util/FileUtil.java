@@ -161,7 +161,7 @@ public class FileUtil {
             p.waitFor();
             int i = p.exitValue();
             log.info(METHOD_NAME + "exitValue = " + i);
-            if (i != 0) {
+            if (i != 0 && !builder.toString().equals("")) {
                 result = false;
                 log.error(METHOD_NAME + "excute cmd failed, [result = " + result + ", error message = " + builder.toString() + "]");
                 log.error("cmd命令执行失败，重新执行");
