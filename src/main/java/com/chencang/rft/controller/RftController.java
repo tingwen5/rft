@@ -1,5 +1,6 @@
 package com.chencang.rft.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.chencang.rft.config.RftConfig;
 import com.chencang.rft.util.FileUtil;
 import com.chencang.rft.util.JenkinsScraper;
@@ -28,6 +29,10 @@ public class RftController {
 
     @PostMapping("/autoTest")
     public void AutoTest(@RequestParam String plat) {
+        String pathHttp = "";
+        String strHttp = rftConfig.getHttpLog();
+        JSONObject jsonObject = JSONObject.parseObject(strHttp);
+        pathHttp = jsonObject.getString(plat);
         if (plat.contains("rft")) {
             String result = FileUtil.readTxt(rftConfig.getPolarionTxt());
             List<String> tbList = Arrays.asList(result.split("\\n"));
@@ -47,7 +52,7 @@ public class RftController {
                 tm.startTimerTask();
                 FileUtil.excuteCMDBatFile(rftConfig.getRftCmd());
                 FileUtil.autoReplaceStr(rftConfig.getRftSched(), str, "\"scriptNameIdentification\"");
-                String code = jenkinsScraper.scrape(rftConfig.getHttpLog(), rftConfig.getJusername(), rftConfig.getJpassword());
+                String code = jenkinsScraper.scrape(pathHttp, rftConfig.getJusername(), rftConfig.getJpassword());
                 log.info(code);
             } catch (IOException e) {
                 e.printStackTrace();
@@ -76,8 +81,10 @@ public class RftController {
                 c+="cd "+lpath+"\n";
                 c+="cd..\n";
                 c+="C:\\Progra~1\\WinRAR\\winrar.exe a -o+ -r -s -ibck labviewWorkspace.rar labviewWorkspace\n";
-                c+="rmdir /s/q labviewWorkspace";
+                c+="rmdir /s/q labviewWorkspace\n";
                 FileUtil.excuteCMDBatFile(c);
+                String code = jenkinsScraper.scrape(pathHttp, rftConfig.getJusername(), rftConfig.getJpassword());
+                log.info(code);
             }catch (Exception e){
                 e.printStackTrace();
             }

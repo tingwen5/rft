@@ -4,15 +4,14 @@ import lombok.SneakyThrows;
 
 import java.util.TimerTask;
 
-public class TimTaskTest extends TimerTask {
-
+public class TimTaskTest2 extends TimerTask {
 
     @SneakyThrows
     @Override
     public void run() {
-        boolean is = FileUtil.isIEStart("iexplore.exe");
-        if (is){
-            FileUtil.excuteCMDBatFile("taskkill /f /im iexplore.exe ");
+        boolean is2 = FileUtil.isIEStart("seqedit.exe");
+        if (is2){
+            FileUtil.excuteCMDBatFile("taskkill /f /im seqedit.exe");
             this.cancel();
         }
     }

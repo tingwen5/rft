@@ -157,7 +157,6 @@ public class FileUtil {
             while ((line = br.readLine()) != null) {
                 builder.append(line);
             }
-
             p.waitFor();
             int i = p.exitValue();
             log.info(METHOD_NAME + "exitValue = " + i);
@@ -180,12 +179,12 @@ public class FileUtil {
     }
 
     /**
-     * 检测ie浏览器是否启动
+     * 检测进程是否启动
      *
      * @return
      * @throws IOException
      */
-    public static boolean isIEStart() throws IOException {
+    public static boolean isIEStart(String course) throws IOException {
         Process p = Runtime.getRuntime().exec("tasklist ");
         BufferedReader bw = new BufferedReader(new InputStreamReader(p
                 .getInputStream()));
@@ -199,9 +198,9 @@ public class FileUtil {
                 break;
             }
         }
-        String ie = "iexplore.exe";
+        String ie = course;
         if (sb.toString().indexOf(ie) != -1) {
-            log.info("ie 已经启动！执行关闭ie命令！");
+            log.info(course+"已经启动！执行关闭"+course+"命令！");
             return true;
         } else
             return false;

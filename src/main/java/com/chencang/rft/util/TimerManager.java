@@ -36,13 +36,24 @@ public class TimerManager {
      */
     private TimTaskTest timerTask = null;
 
+    private TimTaskTest2 timerTask2 = null;
+
     /**
-     * 启动定时任务
+     * 启动定时任务,结束进程id
      */
     public void startTimerTask() {
         timer.purge();
         timerTask = new TimTaskTest();
         timer.schedule(timerTask, new Date(), 10000);
+    }
+
+    /**
+     * 启动定时任务,结束进程teststand
+     */
+    public void startTimerTask2() {
+        timer.purge();
+        timerTask2 = new TimTaskTest2();
+        timer.schedule(timerTask2, new Date(), 20000);
     }
 
     /**
