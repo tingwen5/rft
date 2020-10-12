@@ -15,13 +15,13 @@ public class RftConfig {
     @Value("${rft.cmd}")
     String rftCmd;
 
-    @Value("${jenkins.username}")
+    @Value("${autoTest.username}")
     String jusername;
 
-    @Value("${jenkins.password}")
+    @Value("${autoTest.password}")
     String jpassword;
 
-    @Value("${jenkins.httpLog}")
+    @Value("${autoTest.httpLog}")
     String httpLog;
 
     @Value("${labview.txt}")
