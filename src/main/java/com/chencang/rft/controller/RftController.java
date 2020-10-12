@@ -34,7 +34,7 @@ public class RftController {
         JSONObject jsonObject = JSONObject.parseObject(strHttp);
         pathHttp = jsonObject.getString(plat);
         if (plat.contains("rft")) {
-            String result = FileUtil.readTxt(rftConfig.getPolarionTxt());
+            String result = FileUtil.readTxt(rftConfig.getPolarionTxt()+"\\scriptName.txt");
             List<String> tbList = Arrays.asList(result.split("\\n"));
             tbList.removeAll(Collections.singleton(null));
             String[] scriptNames = tbList.get(2).split(":");
