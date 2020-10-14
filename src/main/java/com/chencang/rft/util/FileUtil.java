@@ -55,9 +55,9 @@ public class FileUtil {
         in = new FileInputStream(filePath);
         in.read(fileContext);
         // 避免出现中文乱码
-        String str = new String(fileContext, "utf-8");//字节转换成字符
+        String str = new String(fileContext, "gb18030");//字节转换成字符
         str = str.replace(oldstr, newStr);
-        out = new PrintWriter(filePath, "utf-8");//写入文件时的charset
+        out = new PrintWriter(filePath, "gb18030");//写入文件时的charset
         out.write(str);
         out.flush();
         out.close();
@@ -91,7 +91,7 @@ public class FileUtil {
             FileOutputStream os = new FileOutputStream(exportFile);
             FileDescriptor fd = os.getFD();
 
-            bufferedWriter = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
+            bufferedWriter = new BufferedWriter(new OutputStreamWriter(os,"gb2312"));
             bufferedWriter.write(content);
 
             //Flush the data from the streams and writes into system buffers
@@ -140,6 +140,7 @@ public class FileUtil {
         File batFile = new File("C:/test/cmd.bat");
         log.info(batFile.getAbsolutePath());
         boolean isSuccess = writeFile(batFile, cmd);
+        //toANSI("C:/test/cmd.bat");
         if (!isSuccess) {
             log.error(METHOD_NAME + "write cmd to File failed.");
             return false;
@@ -150,7 +151,7 @@ public class FileUtil {
         try {
             p = Runtime.getRuntime().exec(batFilePath);
             InputStream fis = p.getErrorStream();//p.getInputStream();
-            InputStreamReader isr = new InputStreamReader(fis, Charset.forName("GBK"));
+            InputStreamReader isr = new InputStreamReader(fis, Charset.forName("UTF-8"));
             BufferedReader br = new BufferedReader(isr);
             String line = null;
             StringBuilder builder = new StringBuilder();
@@ -163,8 +164,7 @@ public class FileUtil {
             if (i != 0 && !builder.toString().equals("")) {
                 result = false;
                 log.error(METHOD_NAME + "excute cmd failed, [result = " + result + ", error message = " + builder.toString() + "]");
-                log.error("cmd命令执行失败，重新执行");
-                excuteCMDBatFile(cmd);
+                log.error("cmd命令执行失败");
             } else {
                 // logger.debug(METHOD_NAME + "excute cmd result = " + result);
                 log.info(METHOD_NAME + "result = " + result);
