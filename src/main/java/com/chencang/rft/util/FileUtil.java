@@ -9,6 +9,10 @@ import org.springframework.util.StringUtils;
 
 import java.io.*;
 import java.nio.charset.Charset;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 @Slf4j
 public class FileUtil {
@@ -39,6 +43,41 @@ public class FileUtil {
     }
 
     /**
+     * 获取文件夹名称
+     *
+     * @return
+     */
+    public static List<String> folder(String basePath) {
+        String[] list = new File(basePath).list();
+        if(list == null){
+            System.out.println("获取文件列表为空");
+            return null;
+        }
+        List<String> folderName = new ArrayList<String>();
+        for (String str : list) {
+            if (isAcronym(str))
+                folderName.add(str);
+        }
+        return folderName;
+    }
+
+    /**
+     * 判断字符串大小写
+     *
+     * @param
+     * @return
+     */
+    public static boolean isAcronym(String word) {
+        for (int i = 0; i < word.length(); i++) {
+            char c = word.charAt(i);
+            if (Character.isLowerCase(c)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
      * 替换文件中的字符串，并覆盖原文件
      *
      * @param filePath
@@ -62,6 +101,22 @@ public class FileUtil {
         out.flush();
         out.close();
         in.close();
+    }
+
+    /**
+     * 设置环境变量
+     */
+    public static void setProperties(String value) throws IOException {
+        excuteCMDBatFile("setx /m rftParameter \"" +value+"\"");
+        String info = System.getenv("rftParameter");
+        log.info(info);
+//        System.out.println("打印 环境变量...");
+//        Map<String,String> map = System.getenv();
+//        for (Iterator<String> it = map.keySet().iterator();it.hasNext();){
+//            String key = it.next();
+//            String value2 = map.get(key);
+//            System.out.println(key+"\t"+value2);
+//        }
     }
 
     /**

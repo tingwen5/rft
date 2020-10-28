@@ -34,24 +34,14 @@ public class RftController {
         JSONObject jsonObject = JSONObject.parseObject(strHttp);
         pathHttp = jsonObject.getString(plat);
         if (plat.contains("rft")) {
-            String result = FileUtil.readTxt(rftConfig.getPolarionTxt()+"\\scriptName.txt");
-            List<String> tbList = Arrays.asList(result.split("\\n"));
-            tbList.removeAll(Collections.singleton(null));
-            String[] scriptNames = tbList.get(2).split(":");
-            String scriptName = scriptNames[1];
-            String[] name = scriptName.substring(1, scriptName.length() - 1).split(",");
-            String str = "";
-            for (int i = 0; i < name.length; i++) {
-                str += "\"" + name[i].trim() + "\"";
-                if (i != name.length - 1)
-                    str += ",";
-            }
             try {
-                FileUtil.autoReplaceStr(rftConfig.getRftSched(), "\"scriptNameIdentification\"", str);
-                TimerManager tm = new TimerManager();
-                tm.startTimerTask();
+                List<String> folderName = new ArrayList<>();
+                folderName = FileUtil.folder(rftConfig.getPolarionTxt());
+                for (String str : folderName){
+                    FileUtil.excuteCMDBatFile(rftConfig.getRftCompile()+str+"/"+str+"_Script");
+                    log.info("编译："+str+"_Script");
+                }
                 FileUtil.excuteCMDBatFile(rftConfig.getRftCmd());
-                FileUtil.autoReplaceStr(rftConfig.getRftSched(), str, "\"scriptNameIdentification\"");
                 String code = jenkinsScraper.scrape(pathHttp, rftConfig.getJusername(), rftConfig.getJpassword());
                 log.info(code);
             } catch (IOException e) {
@@ -59,7 +49,7 @@ public class RftController {
             }
         } else {
             String lpath = rftConfig.getlPaht();
-            String result = FileUtil.readTxt(lpath+"\\scriptName.txt");
+            String result = FileUtil.readTxt(lpath+"/scriptName.txt");
             List<String> tbList = Arrays.asList(result.split("\\n"));
             tbList.removeAll(Collections.singleton(null));
             String[] scriptNames = tbList.get(2).split(":");

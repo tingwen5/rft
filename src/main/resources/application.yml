@@ -4,19 +4,20 @@ server:
 
 #rft工作空间
 polarion:
-  txt: "C:\\jenkins\\workspace\\RFTProject\\Elevator_test_case（单梯）"
+  txt: "C:/jenkins/workspace/RFTProject/Elevator_test_case（单梯）"
 #labview工作空间
 labview:
-  txt: "C:\\jenkins\\workspace\\labProject\\labviewWorkspace"
+  txt: "C:/jenkins/workspace/labProject/labviewWorkspace"
 
 #项目启动入口类
 rft:
-  sched: "C:\\jenkins\\workspace\\RFTProject\\Elevator_test_case（单梯）\\Test1_Script1.java"
+  #rft编译命令
+  compile : "java -classpath \"C:/Progra~2/IBM/SDP/FunctionalTester/bin/rational_ft.jar\" com.rational.test.ft.rational_ft -datastore \"C:/jenkins/workspace/RFTProject/Elevator_test_case（单梯）\" -compile "
   #rft启动命令
-  cmd: "java -classpath \"C:/Progra~2/IBM/SDP/FunctionalTester/bin/rational_ft.jar\" com.rational.test.ft.rational_ft -datastore \"C:/jenkins/workspace/RFTProject/Elevator_test_case（单梯）\" -playback Test1_Script1"
+  cmd: "java -classpath \"C:/Progra~2/IBM/SDP/FunctionalTester/bin/rational_ft.jar\" com.rational.test.ft.rational_ft -rt.bring_up_logviewer false -datastore \"C:/jenkins/workspace/RFTProject/Elevator_test_case（单梯）\" -playback Test1_Script1"
 
 #autoTest配置信息
 autoTest:
   username: "admin"
   password: "d80f839fb3d14127a3da69dce3a5e58a"
-  httpLog: "{rft:'http://192.168.137.133:8081/job/logRFTProject/build?token=12345',labview:'http://192.168.137.133:8081/job/logLabProject/build?token=12345'}"
+  httpLog: "{rft:'http://192.168.137.130:8081/job/logRFTProject/build?token=12345',labview:'http://192.168.137.133:8081/job/logLabProject/build?token=12345'}"

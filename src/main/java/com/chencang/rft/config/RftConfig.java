@@ -9,8 +9,8 @@ public class RftConfig {
     @Value("${polarion.txt}")
     String polarionTxt;
 
-    @Value("${rft.sched}")
-    String rftSched;
+    @Value("${rft.compile}")
+    String rftCompile;
 
     @Value("${rft.cmd}")
     String rftCmd;
@@ -31,12 +31,12 @@ public class RftConfig {
         return polarionTxt;
     }
 
-    public String getRftSched() {
-        return rftSched;
-    }
-
     public String getRftCmd() {
         return rftCmd;
+    }
+
+    public String getRftCompile() {
+        return rftCompile;
     }
 
     public String getJusername() {
