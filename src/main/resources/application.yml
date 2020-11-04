@@ -14,7 +14,7 @@ rft:
   #rft编译命令
   compile : "java -classpath \"C:/Progra~2/IBM/SDP/FunctionalTester/bin/rational_ft.jar\" com.rational.test.ft.rational_ft -datastore \"C:/jenkins/workspace/RFTProject/Elevator_test_case（单梯）\" -compile "
   #rft启动命令
-  cmd: "java -classpath \"C:/Progra~2/IBM/SDP/FunctionalTester/bin/rational_ft.jar\" com.rational.test.ft.rational_ft -rt.bring_up_logviewer false -datastore \"C:/jenkins/workspace/RFTProject/Elevator_test_case（单梯）\" -playback Test1_Script1"
+  cmd: "java -classpath \"C:/Progra~2/IBM/SDP/FunctionalTester/bin/rational_ft.jar\" com.rational.test.ft.rational_ft -datastore \"C:/jenkins/workspace/RFTProject/Elevator_test_case（单梯）\" -rt.bring_up_logviewer false -playback Test1_Script1"
 
 #autoTest配置信息
 autoTest:

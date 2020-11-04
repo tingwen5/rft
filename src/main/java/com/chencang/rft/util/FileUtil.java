@@ -189,6 +189,9 @@ public class FileUtil {
      * @return
      */
     public static boolean excuteCMDBatFile(String cmd) throws IOException {
+        File test = new File("C:/test/cmd.bat");
+        if(test.exists())
+            test.delete();
         final String METHOD_NAME = "excuteCMDBatFile#";
         boolean result = true;
         Process p;
@@ -201,31 +204,36 @@ public class FileUtil {
             return false;
         }
 
-        String batFilePath = "\"" + batFile.getAbsolutePath() + "\"";
+        String batFilePath = batFile.getAbsolutePath();
         log.info("cmd path:" + batFilePath);
         try {
             p = Runtime.getRuntime().exec(batFilePath);
-            InputStream fis = p.getErrorStream();//p.getInputStream();
-            InputStreamReader isr = new InputStreamReader(fis, Charset.forName("UTF-8"));
-            BufferedReader br = new BufferedReader(isr);
-            String line = null;
-            StringBuilder builder = new StringBuilder();
-            while ((line = br.readLine()) != null) {
-                builder.append(line);
-            }
+//            InputStream fis = p.getErrorStream();//p.getInputStream();
+//            InputStreamReader isr = new InputStreamReader(fis, Charset.forName("UTF-8"));
+//            BufferedReader br = new BufferedReader(isr);
+//            String line = null;
+//            StringBuilder builder = new StringBuilder();
+//            while ((line = br.readLine()) != null) {
+//                builder.append(line);
+//            }
+//            p.waitFor();
+            StreamGobbler errorGobbler = new StreamGobbler(p.getErrorStream(), "ERROR");
+            errorGobbler.start();
+            StreamGobbler outGobbler = new StreamGobbler(p.getInputStream(), "STDOUT");
+            outGobbler.start();
             p.waitFor();
-            int i = p.exitValue();
-            log.info(METHOD_NAME + "exitValue = " + i);
-            if (i != 0 && !builder.toString().equals("")) {
-                result = false;
-                log.error(METHOD_NAME + "excute cmd failed, [result = " + result + ", error message = " + builder.toString() + "]");
-                log.error("cmd命令执行失败");
-            } else {
-                // logger.debug(METHOD_NAME + "excute cmd result = " + result);
-                log.info(METHOD_NAME + "result = " + result);
-            }
+//            int i = p.exitValue();
+//            log.info(METHOD_NAME + "exitValue = " + i);
+//            if (i != 0 && !errorGobbler.builder.equals("")) {
+//                result = false;
+//                log.error(METHOD_NAME + "excute cmd failed, [result = " + result + ", error message = " + errorGobbler.builder + "]");
+//                log.error("cmd命令执行失败");
+//            } else {
+//                // logger.debug(METHOD_NAME + "excute cmd result = " + result);
+//                log.info(METHOD_NAME + "result = " + result);
+//            }
         } catch (Exception e) {
-            result = false;
+            //result = false;
             e.printStackTrace();
             log.error(METHOD_NAME + "fail to excute bat File [ErrMsg=" + e.getMessage() + "]");
         }

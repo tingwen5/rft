@@ -35,10 +35,19 @@ public class RftController {
         pathHttp = jsonObject.getString(plat);
         if (plat.contains("rft")) {
             try {
-                List<String> folderName = new ArrayList<>();
-                folderName = FileUtil.folder(rftConfig.getPolarionTxt());
-                for (String str : folderName){
-                    FileUtil.excuteCMDBatFile(rftConfig.getRftCompile()+str+"/"+str+"_Script");
+                boolean is = FileUtil.isIEStart("MTS_RFT.exe");
+                if (is){
+                    System.out.println("检测到cmd程序正在运行，方法返回");
+                    return;
+                }
+                String result = FileUtil.readTxt(rftConfig.getPolarionTxt()+"/scriptName.txt");
+                List<String> tbList = Arrays.asList(result.split("\\n"));
+                tbList.removeAll(Collections.singleton(null));
+                String[] scriptNames = tbList.get(2).split(":");
+                String scriptName = scriptNames[1];
+                String[] name = scriptName.substring(1, scriptName.length() - 1).split(",");
+                for (String str : name){
+                    FileUtil.excuteCMDBatFile(rftConfig.getRftCompile()+str.trim()+"/"+str.trim()+"_Script");
                     log.info("编译："+str+"_Script");
                 }
                 FileUtil.excuteCMDBatFile(rftConfig.getRftCmd());
