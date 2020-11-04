@@ -27,6 +27,9 @@ public class RftConfig {
     @Value("${labview.txt}")
     String lPaht;
 
+    @Value("${labview.cmd}")
+    String labCmd;
+
     public String getPolarionTxt() {
         return polarionTxt;
     }
@@ -53,6 +56,10 @@ public class RftConfig {
 
     public String getlPaht() {
         return lPaht;
+    }
+
+    public String getLabCmd() {
+        return labCmd;
     }
 
 }

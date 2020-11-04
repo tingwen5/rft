@@ -73,7 +73,7 @@ public class RftController {
                     cmd+="echo a>a.xml\n";
                     cmd+="del *.xml /s /a h\n";
                     cmd+="for /f %%a in ('dir /s /b *.seq') do ( set seqName=%%a)\n";
-                    cmd+="\"C:\\Progra~2\\National Instruments\\TestStand 2016\\Bin\\SeqEdit.exe\" /runEntryPoint \"Single Pass\" \"%seqName%\" /quit\n";
+                    cmd+=rftConfig.getLabCmd()+"\"%seqName%\" /quit\n";
                     FileUtil.excuteCMDBatFile(cmd);
                 }
                 String c = "@echo off\n";

@@ -8,6 +8,7 @@ polarion:
 #labview工作空间
 labview:
   txt: "C:/jenkins/workspace/labProject/labviewWorkspace"
+  cmd: "\"C:/Progra~2/National Instruments/TestStand 2016/Bin/SeqEdit.exe\" /runEntryPoint \"Single Pass\" "
 
 #项目启动入口类
 rft:
