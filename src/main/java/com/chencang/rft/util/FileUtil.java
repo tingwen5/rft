@@ -2,7 +2,6 @@ package com.chencang.rft.util;
 
 import com.chencang.rft.config.RftConfig;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.tomcat.util.http.fileupload.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
@@ -26,20 +25,21 @@ public class FileUtil {
      * @param path
      * @return
      */
-    public static String readTxt(String path) {
+    public static List<String> readTxt(String path) {
+        List<String> list = new ArrayList<>();
         File file = new File(path);
         String result = "";
         try {
             BufferedReader br = new BufferedReader(new FileReader(file));//构造一个BufferedReader类来读取文件
             String s = null;
             while ((s = br.readLine()) != null) {//使用readLine方法，一次读一行
-                result = result + "\n" + s;
+                list.add(s);
             }
             br.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return result;
+        return list;
     }
 
     /**
@@ -94,9 +94,9 @@ public class FileUtil {
         in = new FileInputStream(filePath);
         in.read(fileContext);
         // 避免出现中文乱码
-        String str = new String(fileContext, "gb18030");//字节转换成字符
+        String str = new String(fileContext, "utf-8");//字节转换成字符
         str = str.replace(oldstr, newStr);
-        out = new PrintWriter(filePath, "gb18030");//写入文件时的charset
+        out = new PrintWriter(filePath, "utf-8");//写入文件时的charset
         out.write(str);
         out.flush();
         out.close();

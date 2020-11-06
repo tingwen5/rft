@@ -22,3 +22,4 @@ autoTest:
   username: "admin"
   password: "d80f839fb3d14127a3da69dce3a5e58a"
   httpLog: "{rft:'http://192.168.137.130:8081/job/logRFTProject/build?token=12345',labview:'http://192.168.137.133:8081/job/logLabProject/build?token=12345'}"
+
