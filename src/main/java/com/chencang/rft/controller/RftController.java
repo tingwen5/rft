@@ -79,6 +79,7 @@ public class RftController {
                 c += "C:\n";
                 c += "cd " + lpath + "\n";
                 c += "cd..\n";
+                c += "del labviewWorkspace.rar\n";
                 c += "C:/Progra~1/WinRAR/winrar.exe a -o+ -r -s -ibck labviewWorkspace.rar labviewWorkspace\n";
                 c += "rmdir /s/q labviewWorkspace\n";
                 FileUtil.excuteCMDBatFile(c);
@@ -99,13 +100,13 @@ public class RftController {
             else {
                 path = rftConfig.getlPaht();
                 FileUtil.excuteCMDBatFile("C:\ncd "+path.substring(0,path.lastIndexOf("/"))+"\ntest.bat");
-                FileUtil.excuteCMDBatFile("C:\ncd "+path.substring(0,path.lastIndexOf("/"))+"\nC:/Progra~1/WinRAR/winrar.exe x -o+ "+path.substring(0,path.lastIndexOf("/"))+"/labviewWorkspace.rar");
+                FileUtil.excuteCMDBatFile("C:\ncd "+path.substring(0,path.lastIndexOf("/"))+"\nC:/Progra~1/WinRAR/winrar.exe x -o+ labviewWorkspace.rar");
             }
             List<String> scriptNames = FileUtil.readTxt(path + "/scriptName.txt");
             scriptNames.removeAll(Collections.singleton(null));
             String testRunNames = scriptNames.get(0);
             String testRunName = testRunNames.split(":")[1];
-            FileUtil.autoReplaceStr(path + "//scriptName.txt", testRunName, testRunId);
+            FileUtil.autoReplaceStr(path + "/scriptName.txt", testRunName, testRunId);
             if(!plat.contains("rft"))
                 FileUtil.excuteCMDBatFile("C:\ncd "+path.substring(0,path.lastIndexOf("/"))+"\nC:/Progra~1/WinRAR/winrar.exe a -o+ -r -s -ibck labviewWorkspace.rar labviewWorkspace\nrmdir /s/q labviewWorkspace");
         } catch (Exception e) {
