@@ -80,7 +80,7 @@ public class RftController {
                 c+="C:\\Progra~1\\WinRAR\\winrar.exe a -o+ -r -s -ibck labviewWorkspace.rar labviewWorkspace\n";
                 c+="rmdir /s/q labviewWorkspace\n";
                 FileUtil.excuteCMDBatFile(c);
-                String code = jenkinsScraper.scrape(pathHttp+"&&projectId="+projectId+"&&testRunId="+testRunId, rftConfig.getJusername(), rftConfig.getJpassword());
+                String code = jenkinsScraper.scrape(pathHttp+"?projectId="+projectId+"&testRunId="+testRunId, rftConfig.getJusername(), rftConfig.getJpassword());
                 log.info(code);
             }catch (Exception e){
                 e.printStackTrace();
