@@ -4,10 +4,12 @@ server:
 
 #rft工作空间
 polarion:
-  txt: "C:/jenkins/workspace/RFTProject/Elevator_test_case（单梯）"
-#labview工作空间
+  txt: "C:/autoTest/workspace/RFTProject/Elevator_test_case（单梯）"
+
 labview:
-  txt: "C:/jenkins/workspace/labProject/labviewWorkspace"
+  #labview工作空间
+  txt: "C:/autoTest/workspace/labProject/labviewWorkspace"
+  #teststand启动命令
   cmd: "\"C:/Progra~2/National Instruments/TestStand 2016/Bin/SeqEdit.exe\" /runEntryPoint \"Single Pass\" "
 
 #项目启动入口类
@@ -20,6 +22,5 @@ rft:
 #autoTest配置信息
 autoTest:
   username: "admin"
-  password: "d80f839fb3d14127a3da69dce3a5e58a"
-  httpLog: "{rft:'http://192.168.137.130:8081/job/logRFTProject/build?token=12345',labview:'http://192.168.137.133:8081/job/logLabProject/build?token=12345'}"
-
+  password: "admin"
+  httpLog: "{rft:'http://192.168.137.130:8081/job/logRFTProject/buildWithParameters',labview:'http://192.168.137.133:8081/job/logLabProject/buildWithParameters'}"
