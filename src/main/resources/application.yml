@@ -4,7 +4,7 @@ server:
 
 #rft工作空间
 polarion:
-  txt: "C:/autoTest/workspace/RFTProject/Elevator_test_case（单梯）"
+  txt: "C:/autoTest/workspace/onRFTProject2/Elevator_test_case（单梯）"
 
 labview:
   #labview工作空间
@@ -23,4 +23,4 @@ rft:
 autoTest:
   username: "admin"
   password: "admin"
-  httpLog: "{rft:'http://192.168.137.130:8081/job/logRFTProject/buildWithParameters',labview:'http://192.168.137.133:8081/job/logLabProject/buildWithParameters'}"
+  httpLog: "{rft:'http://192.168.137.130:8081/job/logRFTProject/buildWithParameters',labview:'http://192.168.137.130:8081/job/logLabProject/buildWithParameters'}"

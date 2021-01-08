@@ -8,6 +8,7 @@ import org.apache.http.client.AuthCache;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.CredentialsProvider;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.protocol.HttpClientContext;
 import org.apache.http.impl.auth.BasicScheme;
 import org.apache.http.impl.client.BasicAuthCache;
@@ -37,12 +38,12 @@ public class JenkinsScraper {
         authCache.put(host, basicAuth);
         CloseableHttpClient httpClient =
                 HttpClients.custom().setDefaultCredentialsProvider(credsProvider).build();
-        HttpGet httpGet = new HttpGet(uri);
+        HttpPost httpPost = new HttpPost(uri);
         // Add AuthCache to the execution context
         HttpClientContext localContext = HttpClientContext.create();
         localContext.setAuthCache(authCache);
 
-        HttpResponse response = httpClient.execute(host, httpGet, localContext);
+        HttpResponse response = httpClient.execute(host, httpPost, localContext);
 
         return EntityUtils.toString(response.getEntity());
     }
