@@ -66,8 +66,9 @@ public class RftController {
                 for (String n : name){
                     String cmd = "@echo off\n";
                     cmd+="cls\n";
+                    cmd+="c:\n";
                     cmd+="set seqName =\n";
-                    cmd+="cd "+lpath+"\\"+n+"\n";
+                    cmd+="cd "+lpath+"/"+n+"\n";
                     cmd+="echo a>a.xml\n";
                     cmd+="del *.xml /s /a h\n";
                     cmd+="for /f %%a in ('dir /s /b *.seq') do ( set seqName=%%a)\n";
@@ -75,12 +76,13 @@ public class RftController {
                     FileUtil.excuteCMDBatFile(cmd);
                 }
                 String c = "@echo off\n";
+                c+="c:\n";
                 c+="cd "+lpath+"\n";
                 c+="cd..\n";
                 c+="C:\\Progra~1\\WinRAR\\winrar.exe a -o+ -r -s -ibck labviewWorkspace.rar labviewWorkspace\n";
                 c+="rmdir /s/q labviewWorkspace\n";
                 FileUtil.excuteCMDBatFile(c);
-                String code = jenkinsScraper.scrape(pathHttp+"&&projectId="+projectId+"&&testRunId="+testRunId, rftConfig.getJusername(), rftConfig.getJpassword());
+                String code = jenkinsScraper.scrape(pathHttp+"?projectId="+projectId+"&testRunId="+testRunId, rftConfig.getJusername(), rftConfig.getJpassword());
                 log.info(code);
             }catch (Exception e){
                 e.printStackTrace();
